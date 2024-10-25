@@ -1,232 +1,348 @@
 <!DOCTYPE html>
 <html lang="no">
-<head>
-    <link rel="stylesheet" href="style.css">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Prediksjon av Oppholdslengde</title>
     <style>
-        /* Enkel CSS for å skjule medianverdiene som standard */
-        #medianValues {
-            display: none;
-            margin-top: 20px;
-        }
+      /* Enkel CSS for å skjule medianverdiene som standard */
+      #medianValues {
+        display: none;
+        margin-top: 20px;
+      }
     </style>
     <script>
-        // Funksjon for å sette medianverdiene i inputfeltene
-        function fillMedianValues() {
-            document.querySelector("input[name='alder']").value = "{{ median_values['alder'] }}";
-            document.querySelector("input[name='utdanning']").value = "{{ median_values['utdanning'] }}";
-            document.querySelector("input[name='blodtrykk']").value = "{{ median_values['blodtrykk'] }}";
-            document.querySelector("input[name='hvite_blodlegemer']").value = "{{ median_values['hvite_blodlegemer'] }}";
-            document.querySelector("input[name='hjertefrekvens']").value = "{{ median_values['hjertefrekvens'] }}";
-            document.querySelector("input[name='respirasjonsfrekvens']").value = "{{ median_values['respirasjonsfrekvens'] }}";
-            document.querySelector("input[name='kroppstemperatur']").value = "{{ median_values['kroppstemperatur'] }}";
-            document.querySelector("input[name='lungefunksjon']").value = "{{ median_values['lungefunksjon'] }}";
-            document.querySelector("input[name='serumalbumin']").value = "{{ median_values['serumalbumin'] }}";
-            document.querySelector("input[name='kreatinin']").value = "{{ median_values['kreatinin'] }}";
-            document.querySelector("input[name='natrium']").value = "{{ median_values['natrium'] }}";
-            document.querySelector("input[name='blod_ph']").value = "{{ median_values['blod_ph'] }}";
-            document.querySelector("input[name='glukose']").value = "{{ median_values['glukose'] }}";
-            document.querySelector("input[name='blodurea_nitrogen']").value = "{{ median_values['blodurea_nitrogen'] }}";
-            document.querySelector("input[name='urinmengde']").value = "{{ median_values['urinmengde'] }}";
-            document.querySelector("input[name='antall_komorbiditeter']").value = "{{ median_values['antall_komorbiditeter'] }}";
-            document.querySelector("input[name='koma_score']").value = "{{ median_values['koma_score'] }}";
-            document.querySelector("input[name='adl_stedfortreder']").value = "{{ median_values['adl_stedfortreder'] }}";
-            document.querySelector("input[name='fysiologisk_score']").value = "{{ median_values['fysiologisk_score'] }}";
-            document.querySelector("input[name='overlevelsesestimat_2mnd']").value = "{{ median_values['overlevelsesestimat_2mnd'] }}";
-            document.querySelector("input[name='overlevelsesestimat_6mnd']").value = "{{ median_values['overlevelsesestimat_6mnd'] }}";
-
-            // For binære egenskaper
-            document.querySelector("select[name='diabetes']").value = "{{ median_values['diabetes'] }}";
-            document.querySelector("select[name='demens']").value = "{{ median_values['demens'] }}";
-            document.querySelector("select[name='dnr_dag']").value = "{{ median_values['dnr_dag'] }}";
-            document.querySelector("select[name='dnr_status_dnr før innleggelse']").value = "{{ median_values['dnr_status_dnr før innleggelse'] }}";
-            document.querySelector("select[name='dnr_status_dnr ved innleggelse']").value = "{{ median_values['dnr_status_dnr ved innleggelse'] }}";
-            document.querySelector("select[name='kreft_metastatic']").value = "{{ median_values['kreft_metastatic'] }}";
-            document.querySelector("select[name='kreft_no']").value = "{{ median_values['kreft_no'] }}";
-            document.querySelector("select[name='kreft_yes']").value = "{{ median_values['kreft_yes'] }}";
-        }
+      // Funksjon for å sette medianverdiene i inputfeltene
+      function fillMedianValues() {
+        document.querySelector("input[name='alder']").value =
+          "{{ median_values['alder'] }}";
+        document.querySelector("input[name='utdanning']").value =
+          "{{ median_values['utdanning'] }}";
+        document.querySelector("input[name='blodtrykk']").value =
+          "{{ median_values['blodtrykk'] }}";
+        document.querySelector("input[name='hvite_blodlegemer']").value =
+          "{{ median_values['hvite_blodlegemer'] }}";
+        document.querySelector("input[name='hjertefrekvens']").value =
+          "{{ median_values['hjertefrekvens'] }}";
+        document.querySelector("input[name='respirasjonsfrekvens']").value =
+          "{{ median_values['respirasjonsfrekvens'] }}";
+        document.querySelector("input[name='kroppstemperatur']").value =
+          "{{ median_values['kroppstemperatur'] }}";
+        document.querySelector("input[name='lungefunksjon']").value =
+          "{{ median_values['lungefunksjon'] }}";
+        document.querySelector("input[name='serumalbumin']").value =
+          "{{ median_values['serumalbumin'] }}";
+        document.querySelector("input[name='kreatinin']").value =
+          "{{ median_values['kreatinin'] }}";
+        document.querySelector("input[name='natrium']").value =
+          "{{ median_values['natrium'] }}";
+        document.querySelector("input[name='blod_ph']").value =
+          "{{ median_values['blod_ph'] }}";
+        document.querySelector("input[name='glukose']").value =
+          "{{ median_values['glukose'] }}";
+        document.querySelector("input[name='blodurea_nitrogen']").value =
+          "{{ median_values['blodurea_nitrogen'] }}";
+        document.querySelector("input[name='urinmengde']").value =
+          "{{ median_values['urinmengde'] }}";
+        document.querySelector("input[name='antall_komorbiditeter']").value =
+          "{{ median_values['antall_komorbiditeter'] }}";
+        document.querySelector("input[name='koma_score']").value =
+          "{{ median_values['koma_score'] }}";
+        document.querySelector("input[name='adl_stedfortreder']").value =
+          "{{ median_values['adl_stedfortreder'] }}";
+        document.querySelector("input[name='fysiologisk_score']").value =
+          "{{ median_values['fysiologisk_score'] }}";
+        document.querySelector("input[name='overlevelsesestimat_2mnd']").value =
+          "{{ median_values['overlevelsesestimat_2mnd'] }}";
+        document.querySelector("input[name='overlevelsesestimat_6mnd']").value =
+          "{{ median_values['overlevelsesestimat_6mnd'] }}";
+      }
     </script>
-</head>
-<body>
+  </head>
+  <body>
     <h1>Prediksjon av Oppholdslengde</h1>
     <form action="/predict" method="post">
       <!-- Numeric Feature Inputs -->
-<!-- Existing Numerical Feature Inputs -->
 
-<label for="alder">Alder:</label>
-<input type="number" name="alder" step="0.000000001"><br>
+<div class="container">
 
-<label for="utdanning">Utdanning:</label>
-<input type="number" name="utdanning" step="0.000000001"><br>
+    <div class="column-1">
 
-<label for="blodtrykk">Blodtrykk:</label>
-<input type="number" name="blodtrykk" step="0.000000001"><br>
+      <label for="alder">Alder:</label>
+      <input
+        type="number"
+        name="alder"
+        step="0.000000001"
+        value="{{ request.form.get('alder', '') }}" /><br />
 
-<label for="hvite_blodlegemer">Hvite blodlegemer:</label>
-<input type="number" name="hvite_blodlegemer" step="0.000000001"><br>
+      <label for="utdanning">Utdanning:</label>
+      <input
+        type="number"
+        name="utdanning"
+        step="0.000000001"
+        value="{{ request.form.get('utdanning', '') }}" /><br />
 
-<label for="hjertefrekvens">Hjertefrekvens:</label>
-<input type="number" name="hjertefrekvens" step="0.000000001"><br>
+      <label for="blodtrykk">Blodtrykk:</label>
+      <input
+        type="number"
+        name="blodtrykk"
+        step="0.000000001"
+        value="{{ request.form.get('blodtrykk', '') }}" /><br />
 
-<label for="respirasjonsfrekvens">Respirasjonsfrekvens:</label>
-<input type="number" name="respirasjonsfrekvens" step="0.000000001"><br>
+      <label for="hvite_blodlegemer">Hvite blodlegemer:</label>
+      <input
+        type="number"
+        name="hvite_blodlegemer"
+        step="0.000000001"
+        value="{{ request.form.get('hvite_blodlegemer', '') }}" /><br />
 
-<label for="kroppstemperatur">Kroppstemperatur:</label>
-<input type="number" name="kroppstemperatur" step="0.000000001"><br>
+      <label for="hjertefrekvens">Hjertefrekvens:</label>
+      <input
+        type="number"
+        name="hjertefrekvens"
+        step="0.000000001"
+        value="{{ request.form.get('hjertefrekvens', '') }}" /><br />
 
-<label for="lungefunksjon">Lungefunksjon:</label>
-<input type="number" name="lungefunksjon" step="0.000000001"><br>
+      <label for="respirasjonsfrekvens">Respirasjonsfrekvens:</label>
+      <input
+        type="number"
+        name="respirasjonsfrekvens"
+        step="0.000000001"
+        value="{{ request.form.get('respirasjonsfrekvens', '') }}" /><br />
 
-<label for="serumalbumin">Serumalbumin:</label>
-<input type="number" name="serumalbumin" step="0.000000001"><br>
+      <label for="kroppstemperatur">Kroppstemperatur:</label>
+      <input
+        type="number"
+        name="kroppstemperatur"
+        step="0.000000001"
+        value="{{ request.form.get('kroppstemperatur', '') }}" /><br />
 
-<label for="kreatinin">Kreatinin:</label>
-<input type="number" name="kreatinin" step="0.000000001"><br>
+      <label for="lungefunksjon">Lungefunksjon:</label>
+      <input
+        type="number"
+        name="lungefunksjon"
+        step="0.000000001"
+        value="{{ request.form.get('lungefunksjon', '') }}" /><br />
 
-<label for="natrium">Natrium:</label>
-<input type="number" name="natrium" step="0.000000001"><br>
+      <label for="serumalbumin">Serumalbumin:</label>
+      <input
+        type="number"
+        name="serumalbumin"
+        step="0.000000001"
+        value="{{ request.form.get('serumalbumin', '') }}" /><br />
 
-<label for="blod_ph">Blod pH:</label>
-<input type="number" name="blod_ph" step="0.000000001"><br>
+      <label for="kreatinin">Kreatinin:</label>
+      <input
+        type="number"
+        name="kreatinin"
+        step="0.000000001"
+        value="{{ request.form.get('kreatinin', '') }}" /><br />
 
-<label for="glukose">Glukose:</label>
-<input type="number" name="glukose" step="0.000000001"><br>
+      <label for="natrium">Natrium:</label>
+      <input
+        type="number"
+        name="natrium"
+        step="0.000000001"
+        value="{{ request.form.get('natrium', '') }}" /><br />
 
-<label for="blodurea_nitrogen">Blodurea nitrogen:</label>
-<input type="number" name="blodurea_nitrogen" step="0.000000001"><br>
+      <label for="blod_ph">Blod pH:</label>
+      <input
+        type="number"
+        name="blod_ph"
+        step="0.000000001"
+        value="{{ request.form.get('blod_ph', '') }}" /><br />
 
-<label for="urinmengde">Urinmengde:</label>
-<input type="number" name="urinmengde" step="0.000000001"><br>
+      <label for="glukose">Glukose:</label>
+      <input
+        type="number"
+        name="glukose"
+        step="0.000000001"
+        value="{{ request.form.get('glukose', '') }}" /><br />
 
-<label for="antall_komorbiditeter">Antall komorbiditeter:</label>
-<input type="number" name="antall_komorbiditeter" step="0.000000001"><br>
+      <label for="blodurea_nitrogen">Blodurea nitrogen:</label>
+      <input
+        type="number"
+        name="blodurea_nitrogen"
+        step="0.000000001"
+        value="{{ request.form.get('blodurea_nitrogen', '') }}" /><br />
 
-<label for="koma_score">Koma score:</label>
-<input type="number" name="koma_score" step="0.000000001"><br>
+      <label for="urinmengde">Urinmengde:</label>
+      <input
+        type="number"
+        name="urinmengde"
+        step="0.000000001"
+        value="{{ request.form.get('urinmengde', '') }}" /><br />
 
-<label for="adl_stedfortreder">ADL stedfortreder:</label>
-<input type="number" name="adl_stedfortreder" step="0.000000001"><br>
+      <label for="antall_komorbiditeter">Antall komorbiditeter:</label>
+      <input
+        type="number"
+        name="antall_komorbiditeter"
+        step="0.000000001"
+        value="{{ request.form.get('antall_komorbiditeter', '') }}" /><br />
 
-<label for="fysiologisk_score">Fysiologisk score:</label>
-<input type="number" name="fysiologisk_score" step="0.000000001"><br>
+      </div> 
 
-<label for="overlevelsesestimat_2mnd">Overlevelsesestimat 2 måneder:</label>
-<input type="number" name="overlevelsesestimat_2mnd" step="0.000000000000001"><br>
+  <div class="column-2">
+      <label for="koma_score">Koma score:</label>
+      <input
+        type="number"
+        name="koma_score"
+        step="0.000000001"
+        value="{{ request.form.get('koma_score', '') }}" /><br />
 
-<label for="overlevelsesestimat_6mnd">Overlevelsesestimat 6 måneder:</label>
-<input type="number" name="overlevelsesestimat_6mnd" step="0.000000001"><br>
+      <label for="adl_stedfortreder">ADL stedfortreder:</label>
+      <input
+        type="number"
+        name="adl_stedfortreder"
+        step="0.000000001"
+        value="{{ request.form.get('adl_stedfortreder', '') }}" /><br />
 
-<!-- Binary Feature Inputs -->
+      <label for="fysiologisk_score">Fysiologisk score:</label>
+      <input
+        type="number"
+        name="fysiologisk_score"
+        step="0.000000001"
+        value="{{ request.form.get('fysiologisk_score', '') }}" /><br />
 
+      <label for="overlevelsesestimat_2mnd">Overlevelsesestimat 2 mnd:</label>
+      <input
+        type="number"
+        name="overlevelsesestimat_2mnd"
+        step="0.000000000001"
+        value="{{ request.form.get('overlevelsesestimat_2mnd', '') }}" /><br />
+
+      <label for="overlevelsesestimat_6mnd">Overlevelsesestimat 6 mnd:</label>
+      <input
+        type="number"
+        name="overlevelsesestimat_6mnd"
+        step="0.000000001"
+        value="{{ request.form.get('overlevelsesestimat_6mnd', '') }}" /><br />
+
+
+      <!-- Binary Feature Inputs -->
 <div>
     <label for="kjønn">Kjønn:</label>
-    <select name="kjønn">
+    <select name="kjønn" required>
+        <option value="" {% if request.form.kjønn == "" %}selected{% endif %}>Velg kjønn</option>
         {% for value in binary_features['kjønn'] %}
-        <option value="{{ value }}">{{ value }}</option>
+        <option value="{{ value }}" {% if request.form.kjønn == value %}selected{% endif %}>{{ value }}</option>
         {% endfor %}
     </select>
 </div>
 
 <div>
     <label for="inntekt">Inntekt:</label>
-    <select name="inntekt">
+    <select name="inntekt" required>
+        <option value="" {% if request.form.inntekt == "" %}selected{% endif %}>Velg inntekt</option>
         {% for value in binary_features['inntekt'] %}
-        <option value="{{ value }}">{{ value }}</option>
+        <option value="{{ value }}" {% if request.form.inntekt == value %}selected{% endif %}>{{ value }}</option>
         {% endfor %}
     </select>
 </div>
 
 <div>
     <label for="etnisitet">Etnisitet:</label>
-    <select name="etnisitet">
+    <select name="etnisitet" required>
+        <option value="" {% if request.form.etnisitet == "" %}selected{% endif %}>Velg etnisitet</option>
         {% for value in binary_features['etnisitet'] %}
-        <option value="{{ value }}">{{ value }}</option>
+        <option value="{{ value }}" {% if request.form.etnisitet == value %}selected{% endif %}>{{ value }}</option>
         {% endfor %}
     </select>
 </div>
 
 <div>
     <label for="sykdomskategori">Sykdomskategori:</label>
-    <select name="sykdomskategori">
+    <select name="sykdomskategori" required>
+        <option value="" {% if request.form.sykdomskategori == "" %}selected{% endif %}>Velg sykdomskategori</option>
         {% for value in binary_features['sykdomskategori'] %}
-        <option value="{{ value }}">{{ value }}</option>
+        <option value="{{ value }}" {% if request.form.sykdomskategori == value %}selected{% endif %}>{{ value }}</option>
         {% endfor %}
     </select>
 </div>
 
 <div>
     <label for="sykdom_underkategori">Sykdom Underkategori:</label>
-    <select name="sykdom_underkategori">
+    <select name="sykdom_underkategori" required>
+        <option value="" {% if request.form.sykdom_underkategori == "" %}selected{% endif %}>Velg underkategori</option>
         {% for value in binary_features['sykdom_underkategori'] %}
-        <option value="{{ value }}">{{ value }}</option>
+        <option value="{{ value }}" {% if request.form.sykdom_underkategori == value %}selected{% endif %}>{{ value }}</option>
         {% endfor %}
     </select>
 </div>
 
 <div>
     <label for="kreft">Kreft:</label>
-    <select name="kreft">
+    <select name="kreft" required>
+        <option value="" {% if request.form.kreft == "" %}selected{% endif %}>Velg kreftstatus</option>
         {% for value in binary_features['kreft'] %}
-        <option value="{{ value }}">{{ value }}</option>
+        <option value="{{ value }}" {% if request.form.kreft == value %}selected{% endif %}>{{ value }}</option>
         {% endfor %}
     </select>
 </div>
 
-<!-- New Binary Feature Inputs -->
-
 <div>
     <label for="diabetes">Diabetes:</label>
-    <select name="diabetes">
+    <select name="diabetes" required>
+        <option value="" {% if request.form.diabetes == "" %}selected{% endif %}>Velg</option>
         {% for value in binary_features['diabetes'] %}
-        <option value="{{ value }}">{{ value }}</option>
+        <option value="{{ value }}" {% if request.form.diabetes == value %}selected{% endif %}>{{ value }}</option>
         {% endfor %}
     </select>
 </div>
 
 <div>
     <label for="demens">Demens:</label>
-    <select name="demens">
+    <select name="demens" required>
+        <option value="" {% if request.form.demens == "" %}selected{% endif %}>Velg</option>
         {% for value in binary_features['demens'] %}
-        <option value="{{ value }}">{{ value }}</option>
+        <option value="{{ value }}" {% if request.form.demens == value %}selected{% endif %}>{{ value }}</option>
         {% endfor %}
     </select>
 </div>
 
 <div>
     <label for="dnr_dag">DNR Dag:</label>
-    <select name="dnr_dag">
+    <select name="dnr_dag" required>
+        <option value="" {% if request.form.dnr_dag == "" %}selected{% endif %}>Velg</option>
         {% for value in binary_features['dnr_dag'] %}
-        <option value="{{ value }}">{{ value }}</option>
+        <option value="{{ value }}" {% if request.form.dnr_dag == value %}selected{% endif %}>{{ value }}</option>
         {% endfor %}
     </select>
 </div>
 
 <div>
     <label for="dnr_status">DNR Status:</label>
-    <select name="dnr_status">
+    <select name="dnr_status" required>
+        <option value="" {% if request.form.dnr_status == "" %}selected{% endif %}>Velg</option>
         {% for value in binary_features['dnr_status'] %}
-        <option value="{{ value }}">{{ value }}</option>
+        <option value="{{ value }}" {% if request.form.dnr_status == value %}selected{% endif %}>{{ value }}</option>
         {% endfor %}
     </select>
 </div>
 
 
-        <input type="submit" value="Prediker">
+
+</div>
+
+</div>
+    
+
+      <input type="submit" value="Prediker" />
     </form>
 
     <button onclick="fillMedianValues()">Median verdier</button>
 
     <div id="medianValues">
-        <h3>Medianverdier for inputfeltene:</h3>
-        {% for key, value in median_values.items() %}
-            <div>{{ key | capitalize }}: {{ value }}</div>
-        {% endfor %}
+      <h3>Medianverdier for inputfeltene:</h3>
+      {% for key, value in median_values.items() %}
+      <div>{{ key | capitalize }}: {{ value }}</div>
+      {% endfor %}
     </div>
 
     {% if prediction_text %}
-        <h2>{{ prediction_text }}</h2>
+    <h2>{{ prediction_text }}</h2>
     {% endif %}
-</body>
+  </body>
 </html>

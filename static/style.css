@@ -1,39 +1,15 @@
-/* style.css */
-body {
-  font-family: Arial, sans-serif;
-  display: flex;                /* Use flexbox for layout */
-  flex-direction: column;       /* Align items vertically */
-  align-items: center;          /* Center items horizontally */
-  justify-content: center;      /* Center items vertically */
-  height: 100vh;               /* Full viewport height */
-  margin: 0;                   /* Remove default margin */
+h1{
+  text-align: center;
 }
 
-h1 {
-  text-align: center;           /* Center the title */
-  margin-bottom: 20px;         /* Space below the title */
+.container{
+  align-items: center;
 }
 
-/* Form container */
-form {
-  display: flex;                /* Use flexbox for the form */
-  flex-wrap: wrap;             /* Allow wrapping of input fields */
-  justify-content: center;      /* Center input fields */
+.column-1{
+  align-items: left;
 }
 
-/* Style for input fields */
-input[type="text"],
-input[type="number"],
-select {
-  width: 150px;                /* Adjust the width to your desired value */
-  height: 30px;                /* Adjust the height to your desired value */
-  padding: 5px;                /* Add some padding for better appearance */
-  margin: 10px;                /* Space between input fields */
-}
-
-/* Optional: Adjust button size */
-button {
-  width: 100px;                /* Adjust button width */
-  height: 35px;                /* Adjust button height */
-  margin-top: 10px;            /* Space above the button */
+.column-2{
+  align-items: right;
 }

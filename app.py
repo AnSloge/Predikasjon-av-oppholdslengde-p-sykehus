@@ -143,10 +143,8 @@ def predict():
         # Get the prediction result
         prediction_result = prediction[0]
 
-        image_path = '/static/goofy.jpg'
-
         return render_template('./index.html',
-                               prediction_text=f"Predikert oppholdslengde: {prediction_result.astype(int)} dager",
+                               prediction_text=f"Predikert oppholdslengde: {round(prediction_result, 2)} dager",
                                median_values=median_values,
                                binary_features=binary_features)
 
@@ -159,4 +157,3 @@ def predict():
 
 if __name__ == '__main__':
     app.run(port=8080, debug=True)
-
