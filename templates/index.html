@@ -7,14 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Prediksjon av Oppholdslengde</title>
     <style>
-      /* Enkel CSS for å skjule medianverdiene som standard */
       #medianValues {
         display: none;
         margin-top: 20px;
       }
     </style>
     <script>
-      // Funksjon for å sette medianverdiene i inputfeltene
+      // Funksjon for å sette medianverdiene i inputfeltene ved knapptrykk. 
       function fillMedianValues() {
         document.querySelector("input[name='alder']").value =
           "{{ median_values['alder'] }}";
@@ -64,11 +63,13 @@
   <body>
     <h1>Prediksjon av Oppholdslengde</h1>
     <form action="/predict" method="post">
-      <!-- Numeric Feature Inputs -->
 
 <div class="container">
 
     <div class="column-1">
+
+
+      <!-- Numeriske inputs -->
 
       <label for="alder">Alder:</label>
       <input
@@ -221,7 +222,7 @@
         value="{{ request.form.get('overlevelsesestimat_6mnd', '') }}" /><br />
 
 
-      <!-- Binary Feature Inputs -->
+        <!-- Binære inputs -->
 <div>
     <label for="kjønn">Kjønn:</label>
     <select name="kjønn" required>

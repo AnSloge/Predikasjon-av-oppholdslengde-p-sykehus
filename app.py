@@ -9,22 +9,22 @@ logging.basicConfig(level=logging.INFO)
 
 app = Flask(__name__)
 
-# Load the model
+# Laster inn modellen vha. pickle
 try:
     with open("model.pkl", "rb") as f:
         model = pickle.load(f)
-        print(f"Model loaded successfully: {type(model)}")  # Should be <class 'sklearn.model_selection._search.RandomizedSearchCV'>
+        print(f"Model loaded successfully: {type(model)}")
         
         # Access the best model
         best_model = model.best_estimator_
-        print(f"Best model type: {type(best_model)}")  # Should indicate the model type
+        print(f"Best model type: {type(best_model)}")
 except Exception as e:
     print(f"Error loading the model: {str(e)}")
 
 
 
 
-# Define median values for numeric features (assumed already calculated)
+# Henter medianverdier til hver numeriske kolonne.
 median_values = {
     'alder': 65.294985,
     'utdanning': 12.0,
@@ -50,7 +50,7 @@ median_values = {
 }
 
 
-# Define binary feature options
+# Definerer binære alternativer på nettsiden.
 binary_features = {
     'kjønn': ['female', 'male'],
     'inntekt': ['$11-$25k', '$25-$50k', '>$50k', 'under $11k', 'nan'],
@@ -72,10 +72,8 @@ def home():
 @app.route('/predict', methods=['POST'])
 def predict():
     try:
-        # Collect form input data
         input_data = request.form.to_dict()
 
-        # Initialize a dictionary to hold the processed input data
         processed_input = {
             'alder': float(input_data.get('alder', 0)),
             'utdanning': float(input_data.get('utdanning', 0)),
@@ -134,13 +132,11 @@ def predict():
             'dnr_status_None': 1.0 if input_data.get('dnr_status') == 'None' else 0.0,
         }
 
-        # Convert the processed input to a DataFrame
+        # Gjør prossesert input om til en DataFrame.
         features_df = pd.DataFrame([processed_input])
 
-        # Use the full pipeline (including preprocessing) for prediction
         prediction = model.predict(features_df)
 
-        # Get the prediction result
         prediction_result = prediction[0]
 
         return render_template('./index.html',
