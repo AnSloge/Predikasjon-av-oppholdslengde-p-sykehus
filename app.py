@@ -67,13 +67,15 @@ binary_features = {
 @app.route('/')
 def home():
     return render_template('index.html', median_values=median_values, binary_features=binary_features)
-
+  
 
 @app.route('/predict', methods=['POST'])
 def predict():
     try:
+        # Gather input data
         input_data = request.form.to_dict()
 
+        # Process input data
         processed_input = {
             'alder': float(input_data.get('alder', 0)),
             'utdanning': float(input_data.get('utdanning', 0)),
@@ -132,13 +134,18 @@ def predict():
             'dnr_status_None': 1.0 if input_data.get('dnr_status') == 'None' else 0.0,
         }
 
-        # Gjør prossesert input om til en DataFrame.
+        # Convert processed input to a DataFrame
         features_df = pd.DataFrame([processed_input])
 
+        # Predict using the loaded model
         prediction = model.predict(features_df)
-
         prediction_result = prediction[0]
 
+        # Ensure the predicted value is non-negative
+        if prediction_result < 0:
+            prediction_result = 0
+
+        # Return the result to the webpage
         return render_template('./index.html',
                                prediction_text=f"Predikert oppholdslengde: {round(prediction_result, 2)} dager",
                                median_values=median_values,
@@ -150,6 +157,24 @@ def predict():
                                prediction_text="An error occurred during prediction.",
                                median_values=median_values,
                                binary_features=binary_features)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 if __name__ == '__main__':
     app.run(port=8080, debug=True)
