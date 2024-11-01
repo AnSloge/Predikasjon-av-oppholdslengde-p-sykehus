@@ -3,9 +3,8 @@ import pandas as pd
 import pickle
 from flask import Flask, request, render_template
 from waitress import serve
-import logging
 
-logging.basicConfig(level=logging.INFO)
+
 
 app = Flask(__name__)
 
@@ -24,7 +23,7 @@ except Exception as e:
 
 
 
-# Henter medianverdier til hver numeriske kolonne.
+# Henter medianverdier til hver numeriske kolonne. Disse har jeg regnet ut i analysebiten.
 median_values = {
     'alder': 65.294985,
     'utdanning': 12.0,
