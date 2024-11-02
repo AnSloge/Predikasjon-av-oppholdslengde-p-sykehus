@@ -8,7 +8,7 @@ from waitress import serve
 
 app = Flask(__name__)
 
-# Laster inn modellen vha. pickle
+# Laster inn modellen vha. pickle.
 try:
     with open("model.pkl", "rb") as f:
         model = pickle.load(f)
@@ -71,10 +71,8 @@ def home():
 @app.route('/predict', methods=['POST'])
 def predict():
     try:
-        # Gather input data
         input_data = request.form.to_dict()
 
-        # Process input data
         processed_input = {
             'alder': float(input_data.get('alder', 0)),
             'utdanning': float(input_data.get('utdanning', 0)),
@@ -132,19 +130,18 @@ def predict():
             'dnr_status_dnr ved innleggelse': 1.0 if input_data.get('dnr_status') == 'dnr ved innleggelse' else 0.0,
             'dnr_status_None': 1.0 if input_data.get('dnr_status') == 'None' else 0.0,
         }
-
-        # Convert processed input to a DataFrame
+        
         features_df = pd.DataFrame([processed_input])
 
-        # Predict using the loaded model
+        #Predikerer oppholdslengde med den gitte modellen.
         prediction = model.predict(features_df)
         prediction_result = prediction[0]
 
-        # Ensure the predicted value is non-negative
+        # Sjekker at den predikerte veriden ikke er negativ. 
         if prediction_result < 0:
             prediction_result = 0
 
-        # Return the result to the webpage
+       # Returnerer resultatet til nettsiden.
         return render_template('./index.html',
                                prediction_text=f"Predikert oppholdslengde: {round(prediction_result, 2)} dager",
                                median_values=median_values,

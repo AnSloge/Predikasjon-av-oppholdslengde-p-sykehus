@@ -2,6 +2,7 @@
 NETTSIDE TIL PREDIKSJON AV OPPHOLDSLENGDE PÅ SYKEHUS
 
 
+
 Formål og målgruppe:
 
 Formålet til denne brukerdokumentasjonen er å gi brukeren en grundig forståelse av hvordan appen kan utnyttet optimalt. Applikasjonen er i hovedsak rettet mot helsepersonell, sykepleiere og leger som i teorien kan anvende appen til å predikere sykehusopphold for pasienter basert på ulike helserelaterte variabler.
@@ -59,7 +60,7 @@ Feilsøking:
 
 Applikasjonen kontrollerer automatisk at de oppgitte verdiene er gyldige. Merk at:
 
-* Brukeren kan ikke fylle inn tekst, input må være numerisk
+* Brukeren kan ikke fylle inn tekst, input må være numerisk.
 * Negative numeriske verdier gir feilmelding.
 * Brukeren må fylle inn alle feltene.
 

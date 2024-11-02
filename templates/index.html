@@ -71,12 +71,14 @@
 
       <!-- Numeriske inputs -->
 
+      <!-- For alle inputs: (type: inputs må være tall), (min: inputs kan ikke være negative), (step: definerer antall desimaler som er lov), (required: alle nmeriske inputs på også fylles ut) -->
       <label for="alder">Alder:</label>
       <input
         type="number"
         name="alder"
         min = "0"
         step="0.000000001"
+        required
         value="{{ request.form.get('alder', '') }}" /><br />
 
       <label for="utdanning">Utdanning:</label>
@@ -85,6 +87,7 @@
         name="utdanning"
         min = "0"
         step="0.000000001"
+        required
         value="{{ request.form.get('utdanning', '') }}" /><br />
 
       <label for="blodtrykk">Blodtrykk:</label>
@@ -93,6 +96,7 @@
         name="blodtrykk"
         min = "0"
         step="0.000000001"
+        required
         value="{{ request.form.get('blodtrykk', '') }}" /><br />
 
       <label for="hvite_blodlegemer">Hvite blodlegemer:</label>
@@ -101,6 +105,7 @@
         name="hvite_blodlegemer"
         min = "0"
         step="0.000000001"
+        required
         value="{{ request.form.get('hvite_blodlegemer', '') }}" /><br />
 
       <label for="hjertefrekvens">Hjertefrekvens:</label>
@@ -109,6 +114,7 @@
         name="hjertefrekvens"
         min = "0"
         step="0.000000001"
+        required
         value="{{ request.form.get('hjertefrekvens', '') }}" /><br />
 
       <label for="respirasjonsfrekvens">Respirasjonsfrekvens:</label>
@@ -117,6 +123,7 @@
         name="respirasjonsfrekvens"
         min = "0"
         step="0.000000001"
+        required
         value="{{ request.form.get('respirasjonsfrekvens', '') }}" /><br />
 
       <label for="kroppstemperatur">Kroppstemperatur:</label>
@@ -125,6 +132,7 @@
         name="kroppstemperatur"
         min = "0"
         step="0.000000001"
+        required
         value="{{ request.form.get('kroppstemperatur', '') }}" /><br />
 
       <label for="lungefunksjon">Lungefunksjon:</label>
@@ -133,6 +141,7 @@
         name="lungefunksjon"
         min = "0"
         step="0.000000001"
+        required
         value="{{ request.form.get('lungefunksjon', '') }}" /><br />
 
       <label for="serumalbumin">Serumalbumin:</label>
@@ -141,6 +150,7 @@
         name="serumalbumin"
         min = "0"
         step="0.000000001"
+        required
         value="{{ request.form.get('serumalbumin', '') }}" /><br />
 
       <label for="kreatinin">Kreatinin:</label>
@@ -149,6 +159,7 @@
         name="kreatinin"
         min = "0"
         step="0.000000001"
+        required
         value="{{ request.form.get('kreatinin', '') }}" /><br />
 
       <label for="natrium">Natrium:</label>
@@ -157,6 +168,7 @@
         name="natrium"
         min = "0"
         step="0.000000001"
+        required
         value="{{ request.form.get('natrium', '') }}" /><br />
 
       <label for="blod_ph">Blod pH:</label>
@@ -165,6 +177,7 @@
         name="blod_ph"
         min = "0"
         step="0.000000001"
+        required
         value="{{ request.form.get('blod_ph', '') }}" /><br />
 
       <label for="glukose">Glukose:</label>
@@ -173,6 +186,7 @@
         name="glukose"
         min = "0"
         step="0.000000001"
+        required
         value="{{ request.form.get('glukose', '') }}" /><br />
 
       <label for="blodurea_nitrogen">Blodurea nitrogen:</label>
@@ -181,6 +195,7 @@
         name="blodurea_nitrogen"
         min = "0"
         step="0.000000001"
+        required
         value="{{ request.form.get('blodurea_nitrogen', '') }}" /><br />
 
       <label for="urinmengde">Urinmengde:</label>
@@ -189,6 +204,7 @@
         name="urinmengde"
         min = "0"
         step="0.000000001"
+        required
         value="{{ request.form.get('urinmengde', '') }}" /><br />
 
       <label for="antall_komorbiditeter">Antall komorbiditeter:</label>
@@ -197,6 +213,7 @@
         name="antall_komorbiditeter"
         min = "0"
         step="0.000000001"
+        required
         value="{{ request.form.get('antall_komorbiditeter', '') }}" /><br />
 
       </div> 
@@ -244,6 +261,8 @@
 
 
         <!-- Binære inputs -->
+
+        <!-- Lager "drop-downs" med alternativer for hver kategoriske variabel. -->
 <div>
     <label for="kjønn">Kjønn:</label>
     <select name="kjønn" required>
@@ -354,6 +373,7 @@
       <input type="submit" value="Prediker" />
     </form>
 
+    <!-- Hvis man klikker på knappen, kjøres denne funksjonen og medianverdiene blir fylt inn. -->
     <button onclick="fillMedianValues()">Median verdier</button>
 
     <div id="medianValues">

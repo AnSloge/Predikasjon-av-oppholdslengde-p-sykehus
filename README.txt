@@ -21,19 +21,19 @@ I analyse.ipynb skal du kunne finne:
 
 2. For å kjøre applikasjonen anbefaler jeg å kjøre applikasjonen lokalt. Da gjør du følgende: 
 
-Hvis du bruker windows/linux:
+Hvis du bruker Windows/Linux:
 
 1. Åpne Windows Powershell.
 2. Naviger deg til dit du lagrer programmet. cd /Users/ditt_brukernavn/Mappenavn
 3. Kjøre appen på følgende vis: python app.py
-4. Åpne din nettleser, og skriv inn følgende addresse: http://localhost:8080/
+4. I Windows Powershell vil det stå: Running on http://din_link. Gå inn på linjen ved ctr+click
 
 Hvis du bruker Mac:
 
 1. Åpne Terminal
 2. Naviger deg til dit du lagrer programmet. cd /Users/ditt_brukernavn/Mappenavn
 3. Kjøre appen på følgende vis: python app.py
-4. Åpne din nettleser, og skriv inn følgende addresse: http://localhost:8080/
+4. I Terminalen vil det stå: Running on http://din_link. Gå inn på linjen ved ctr+click
 
 
 For detaljert beskrivelse om hvordan man bruker applikasjonen/nettsiden, se "app_brukerdokumentasjon.txt". 
